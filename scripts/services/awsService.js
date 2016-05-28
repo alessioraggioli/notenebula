@@ -1,7 +1,7 @@
 /**
  * Created by Luca on 27/05/2016.
  */
-//Si lo so ma onde evitare casini faccio un altro servizio
+//Si lo so che c'e' uploadService ma onde evitare casini faccio un altro servizio
 routerApp.service('AwsService', function () {
 
     this.bucket;
@@ -22,8 +22,8 @@ routerApp.service('AwsService', function () {
         });
     }
 
-    this.getObject = function(callback){
-        bucket.getObject({Bucket: 'tsac-its', Key: 'pettenuzzo'}, function(err, data) {
+    this.getObject = function(key, callback){
+        bucket.getObject({Bucket: 'tsac-its', Key: key}, function(err, data) {
             if (err) {
                 console.log(err, err.stack);
             }
@@ -34,20 +34,15 @@ routerApp.service('AwsService', function () {
 
     this.upload = function(callback){
         var fileChooser = document.getElementById('file-chooser');
-        var button = document.getElementById('upload-button');
-        var results = document.getElementById('results');
-        button.addEventListener('click', function() {
-            var file = fileChooser.files[0];
-            if (file) {
-                results.innerHTML = '';
-
-                var params = {Key: file.name, ContentType: file.type, Body: file};
-                bucket.upload(params, callback(err, data));
-            }
-            else {
-                results.innerHTML = 'Nothing to upload.';
-            }
-        }, false);
+        var file = fileChooser.files[0];
+        if (file) {
+            var params = {Key: file.name, ContentType: file.type, Body: file};
+            bucket.upload(params, function(err, data){callback(err, data);});
+        }
+        else {
+            console.log("Non ce un cazzo");
+            //TODO avviso
+        }
     }
 
 

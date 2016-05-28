@@ -398,9 +398,13 @@
                             </div>
                            
                             <div class="modal-footer">
-                                <input type="submit" value="pray" ng-click="dio()" />
-                                <input type="file" id="filechooser"
-                                    class="filestyle" />
+                                <button type="button" ng-click="getFile()">
+                                    Si so spetta un attimo</button>
+                                <button type="button">
+                                    E solo per provare</button>
+                                <input type="submit" value="Upload" ng-click="upload()" />
+                                <input type="file" id="file-chooser"
+                                       class="filestyle" />
 
                             </div>
                         </div>

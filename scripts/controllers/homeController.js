@@ -68,7 +68,8 @@ angular.module('routerApp')
                 color: ColorService.getRandomColor(),
                 tags: [],
                 trashed: false,
-                font: "gloria"
+                font: "gloria",
+                fileKey: {key:"-1"}
             };
             dbLocal.put(t, function callback(err, result) {
                 if (!err) {
@@ -101,7 +102,8 @@ angular.module('routerApp')
                 color: $scope.currentNote.doc.color,
                 tags: $('.selectCategories').val(),
                 trashed: $scope.currentNote.doc.trashed,
-                font: $scope.currentNote.doc.font
+                font: $scope.currentNote.doc.font,
+                fileKey: $scope.currentNote.doc.fileKey
             };
             console.log("T ha anche ");
             console.log(t.color);
@@ -149,7 +151,8 @@ angular.module('routerApp')
                 color: color,
                 tags: $('.selectCategories').val(),
                 trashed: $scope.currentNote.doc.trashed,
-                font: $scope.currentNote.doc.font
+                font: $scope.currentNote.doc.font,
+                fileKey: $scope.currentNote.doc.fileKey
             };
             dbLocal.put(t, function callback(err, result) {
                 if (!err) {
@@ -195,7 +198,8 @@ angular.module('routerApp')
                 color: $scope.currentNote.doc.color,
                 tags: $('.selectCategories').val(),
                 trashed: $scope.currentNote.doc.trashed,
-                font: font
+                font: font,
+                fileKey: $scope.currentNote.doc.fileKey
             };
             dbLocal.put(t, function callback(err, result) {
                 if (!err) {
@@ -245,7 +249,8 @@ angular.module('routerApp')
                 color: $scope.currentNote.doc.color,
                 tags: $('.selectCategories').val(),
                 trashed: true,
-                font: $scope.currentNote.doc.font
+                font: $scope.currentNote.doc.font,
+                fileKey: $scope.currentNote.doc.fileKey
             };
             dbLocal.put(t, function callback(err, result) {
                 if (!err) {
@@ -271,6 +276,48 @@ angular.module('routerApp')
                             console.log($scope.localStoredNotes.length);
                             if ($scope.localStoredNotes.filter(function(x){return !x.doc.trashed}).length > 0) openLastReadable();
                             $scope.footerMessage = "Nota cancellata";
+                        }
+                    });
+                }
+                else {
+                    notifyError(err);
+                }
+
+            });
+        }
+
+        $scope.editFile = function(file){
+            console.log("Aggiunta file a ")
+            console.log($scope.currentNote);
+            if ($scope.currentNote == undefined) console.error("Si sta cercando di modificare una nota che non esiste wtf");
+            var t = {
+                _id: $scope.currentNote.doc._id,
+                _rev: $scope.currentNote.doc._rev,
+                content: $scope.text,
+                title: $scope.title,
+                creationDate: $scope.currentNote.doc.creationDate,
+                lastEditDate: getNow(),
+                color: $scope.currentNote.doc.color,
+                tags: $('.selectCategories').val(),
+                trashed: $scope.currentNote.doc.trashed,
+                font: $scope.currentNote.doc.font,
+                fileKey: file
+            };
+            dbLocal.put(t, function callback(err, result) {
+                if (!err) {
+                    console.log("Aggiunta del file riuscita?")
+                    console.log(result);
+                    backRead(function(err, result){
+                        if (err){
+                            notifyError(err);
+                        }
+                        else {
+                            singleRead(t._id, function (err, data) {
+                                if (!err) {
+                                    $scope.open({ doc: data });
+                                    $scope.sortByLastEdit();
+                                }
+                            });
                         }
                     });
                 }
@@ -867,6 +914,28 @@ angular.module('routerApp')
              g = (255*Math.random()) | 0,
              b = (255*Math.random()) | 0;
              return 'rgb(' + r + ',' + g + ',' + b + ')';
+        };
+
+        $scope.upload = function(){
+            AwsService.upload(function(err, data){
+                //alert(err);
+                //alert(data);
+                console.log("Gesu' cristo no nessuno");
+                console.log(err);
+                console.log(data);
+                $scope.editFile(data);
+            });
+        }
+
+        $scope.getFile = function(){
+            console.log($scope.currentNote.fileKey);
+            if ($scope.currentNote.doc.fileKey.Key == "-1") return;
+            AwsService.getObject($scope.currentNote.doc.fileKey.Key, function(err, data){
+                //alert(err);
+                //alert(data);
+                console.log(err);
+                console.log(data);
+            });
         }
 
         $(document).ready(function () {
