@@ -9,11 +9,11 @@ body {
 }
 
 .none {
-    display:none;
+    display: none;
 }
 
 .normal {
-    display:block;
+    display: block;
 }
 
 .centered {
@@ -395,9 +395,9 @@ select {
 
     .fontButtonsModal:hover {
         transition: all 0.3s ease-in-out;
-        background:#7ad9b0;
-        font-size:18pt;
-        font-weight:bolder;
+        background: #7ad9b0;
+        font-size: 18pt;
+        font-weight: bolder;
     }
 
 
@@ -598,8 +598,8 @@ select {
     margin-top: 1%;
     margin-left: 10%;
     margin-right: 10%;
-    max-width: 80%;
-    max-height: 400px;
+    max-width: 70%;
+    max-height: 320px;
     min-width: 50%;
     min-height: 220px;
 }
@@ -608,18 +608,18 @@ select {
     margin-top: 1%;
     margin-left: 10%;
     margin-right: 10%;
-    max-width: 80%;
-    max-height: 400px;
+    max-width: 70%;
+    max-height: 320px;
     min-width: 50%;
     min-height: 220px;
 }
 
 #startbutton, #upbutton {
     font-size: 14pt;
-    width: 80%;
+    width: 60px;
     text-align: center;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 85%;
+    margin-top:-380px;
 }
 
 .orange {
@@ -636,6 +636,7 @@ select {
 
 .ocean {
     background-color: #7ad9b0;
+    color:black;
 }
 
     .ocean:hover, .ocean:active, .ocean:visited, .ocean:focus {
@@ -1177,40 +1178,14 @@ a, a:hover, a:visited, a:focus, a:active {
     color: black;
 }
 
-/*
-  We're using CSS transitions for when
-  the enter and move events are triggered
-  for the element that has the .repeated-item
-  class
-*/
-.repeated-item.ng-enter, .repeated-item.ng-move {
-  transition: all 0.5s linear;
-  opacity: 0;
+.blockNote.ng-enter {
+    -webkit-transition: 1s;
+    transition: 1s;
+    opacity: 0;
 }
 
-/*
- The ng-enter-active and ng-move-active
- are where the transition destination properties
- are set so that the animation knows what to
- animate.
-*/
-.repeated-item.ng-enter.ng-enter-active,
-.repeated-item.ng-move.ng-move-active {
-  opacity: 1;
-}
-
-/*
-  We're using CSS keyframe animations for when
-  the leave event is triggered for the element
-  that has the .repeated-item class
-*/
-.repeated-item.ng-leave {
-  animation: 0.5s my_animation;
-}
-
-@keyframes my_animation {
-  from { opacity:1; }
-  to { opacity:0; }
+.blockNote.ng-enter-active {
+    opacity: 1;
 }
 
 @media screen and (max-width: 768px) {

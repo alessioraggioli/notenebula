@@ -195,7 +195,7 @@
                         <br />
                         Oops, non ho trovato note</h2>
                 </div>
-                <div class="blockNote repeated-item" ng-repeat="x in localStoredNotes | filter:searchAndTagFilter"
+                <div class="blockNote" ng-repeat="x in localStoredNotes | filter:searchAndTagFilter"
                     style="background-color: {{x.doc.color}}">
                     <div ng-click="open(x, true)">
                         <h1 ng-style="{color: isNoteOpaque(x) ? 'white' : 'black'}">
@@ -593,11 +593,21 @@
                                 </h2>
                             </div>
                             <video id="video"></video>
-                            <button id="startbutton" class="btn btn-warning">Scatta</button>
+                            <button id="startbutton" class="btn btn-warning"
+                                data-tooltip="tooltip"
+                data-placement="bottom" title="Scatta!"><i class="fa fa-camera" aria-hidden="true"></i></button>
                             <canvas id="canvas"></canvas>
-                            <button id="upbutton" class="btn btn-info">Carica</button>
+                            <button id="upbutton" class="btn btn-info" data-tooltip="tooltip"
+                data-placement="bottom" title="Carica!"><i class="fa fa-upload" aria-hidden="true"></i></button>
                             <div class="modal-footer">
-                                
+                                 <div class="progress">
+                                    <div class="progress-bar"
+                                         ng-class="downloadedNote ? 'progress-bar-success' : 'progress-bar-info progress-bar-striped active'"
+                                         role="progressbar"
+                                         aria-valuenow="100" aria-valuemin="0"
+                                         aria-valuemax="100" style="width: 100%">
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
