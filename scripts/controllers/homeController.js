@@ -924,6 +924,14 @@ angular.module('routerApp')
             $scope.uploadingMessage = "Seleziona un file da caricare";
         }
 
+        /*
+
+         var blob = new Blob( [ data.Body ], { type: note.attachment.type } );
+         var urlCreator = window.URL || window.webkitURL;
+         return urlCreator.createObjectURL(blob);
+
+         */
+
         $scope.upload = function(){
             $scope.uploadingPhase = 1;
             $scope.uploadingMessage = "Caricamento allegato...";
