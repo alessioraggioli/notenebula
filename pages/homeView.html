@@ -76,12 +76,12 @@
                     <i class="fa fa-paperclip" aria-hidden="true"
                         id="grey"></i>
                 </li>
-                <li class="sidebarElement" style="float: none;"
+                <!--<li class="sidebarElement" style="float: none;"
                     data-toggle="modal" data-target="#myDownloadModal">
                     <i class="fa fa-download" aria-hidden="true"
                         id="blue">
                     </i>
-                </li>
+                </li>-->
                 <li class="sidebarElement" data-toggle="modal"
                     data-target="#myShareModal">
                     <i class="fa fa-share-alt" aria-hidden="true"
@@ -195,7 +195,7 @@
                         <br />
                         Oops, non ho trovato note</h2>
                 </div>
-                <div class="blockNote" ng-repeat="x in localStoredNotes | filter:searchAndTagFilter"
+                <div class="blockNote repeated-item" ng-repeat="x in localStoredNotes | filter:searchAndTagFilter"
                     style="background-color: {{x.doc.color}}">
                     <div ng-click="open(x, true)">
                         <h1 ng-style="{color: isNoteOpaque(x) ? 'white' : 'black'}">
@@ -397,16 +397,25 @@
                                 
                             </div>
                            
-                            <div class="modal-footer">
-                                <button type="button" ng-click="getFile()">
-                                    Si so spetta un attimo</button>
-                                <button type="button">
-                                    E solo per provare</button>
-                                <input type="submit" value="Upload" ng-click="upload()" />
+                            <div class="modal-body">
+                               <div class="progress">
+                                    <div class="progress-bar"
+                                         ng-class="downloadedNote ? 'progress-bar-success' : 'progress-bar-info progress-bar-striped active'"
+                                         role="progressbar"
+                                         aria-valuenow="100" aria-valuemin="0"
+                                         aria-valuemax="100" style="width: 100%">
+                                    </div>
+                                </div>
                                 <input type="file" id="file-chooser"
                                        class="filestyle" />
 
                             </div>
+                            <div class="modal-footer">
+                                 <input type="submit" value="Upload" ng-click="upload()" class="btn btn-info" />
+                            <button type="button" ng-click="getFile()" class="btn btn-default">
+                                    Allega</button>
+                               
+                                </div>
                         </div>
                     </div>
                 </div>
