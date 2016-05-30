@@ -51,6 +51,9 @@ angular.module('routerApp')
         $scope.downloadedNote = false;
         $scope.downloading = false;
 
+        $scope.uploadingPhase = 0;
+        $scope.uploadingMessage = "Seleziona un file da caricare";
+
         $scope.write = function () {
             console.log("Creazione nuova nota");
             if (TrafficLightService.busy()) {
@@ -916,14 +919,35 @@ angular.module('routerApp')
              return 'rgb(' + r + ',' + g + ',' + b + ')';
         };
 
+        $scope.resetUpload = function(){
+            $scope.uploadingPhase = 0;
+            $scope.uploadingMessage = "Seleziona un file da caricare";
+        }
+
         $scope.upload = function(){
+            $scope.uploadingPhase = 1;
+            $scope.uploadingMessage = "Caricamento allegato...";
             AwsService.upload(function(err, data){
+                if (err){
+                    if (err.porco){
+                        $scope.uploadingMessage = "Caricamento del niente riuscito! (Dovresti selezionare un file)";
+                        $scope.uploadingPhase = 0;
+                    }
+                    else {
+                        $scope.uploadingMessage = "Corbezzoli!";
+                        $scope.uploadingPhase = 3;
+                        console.error(err);
+                    }
+                    return;
+                }
                 //alert(err);
                 //alert(data);
                 console.log("Gesu' cristo no nessuno");
                 console.log(err);
                 console.log(data);
                 $scope.editFile(data);
+                $scope.uploadingPhase = 2;
+                $scope.uploadingMessage = "Caricamento riuscito!";
             });
         }
 

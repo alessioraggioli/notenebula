@@ -375,10 +375,10 @@ select {
     min-width: 75px;
     min-height: 75px;
     padding: 10px 16px;
-    border-top-left-radius: 35px;
-    border-top-right-radius: 35px;
-    border-bottom-left-radius: 35px;
-    border-bottom-right-radius: 35px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
     background: white;
     margin-left: 5px;
     opacity: 0.9;
@@ -396,10 +396,10 @@ select {
     min-width: 75px;
     min-height: 75px;
     padding: 5px;
-    border-top-left-radius: 35px;
-    border-top-right-radius: 35px;
-    border-bottom-left-radius: 35px;
-    border-bottom-right-radius: 35px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
     background: white;
     margin-left: 5px;
     opacity: 0.9;
@@ -1112,14 +1112,6 @@ footer {
         cursor: pointer;
         font-family: NTR;
         color: #f0eded;
-    }
-
-    .deleteAllMobile {
-        list-style-type: none;
-        color: #ff6a00;
-        border-bottom-right-radius: 25px;
-        padding-left: 15px;
-        margin-top: -5px;
     }
 
     #addMobile {

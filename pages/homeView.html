@@ -398,16 +398,19 @@
                             </div>
                            
                             <div class="modal-body">
-                               <div class="progress">
+                                {{uploadingMessage}}
+                               <div class="progress" ng-show = "uploadingPhase > 0"
+                                    ng-class="uploadingPhase == 0 ? 'progress-bar' : uploadingPhase == 1 ? 'progress-bar-info progress-bar-striped active' : uploadingPhase == 2 ? 'progress-bar-success' : 'progress-bar-danger progress-bar-striped'"
+                                    role="progressbar"
+                                    aria-valuenow="{{uploadingPhase == 0 ? '0' : '100'}}" aria-valuemin="0"
+                                    aria-valuemax="{{uploadingPhase == 0 ? '0' : '100'}}"
+                                    style="width: 100%">
                                     <div class="progress-bar"
-                                         ng-class="downloadedNote ? 'progress-bar-success' : 'progress-bar-info progress-bar-striped active'"
-                                         role="progressbar"
-                                         aria-valuenow="100" aria-valuemin="0"
-                                         aria-valuemax="100" style="width: 100%">
+                                         >
                                     </div>
                                 </div>
-                                <input type="file" id="file-chooser"
-                                       class="filestyle" />
+                                <input type="file" id="file-chooser"/>
+                                       <!-- class="filestyle" -->
 
                             </div>
                             <div class="modal-footer">
@@ -440,7 +443,8 @@
                                     data-tooltip="tooltip" data-placement="right"
                                     data- title="Carica file"
                                     data-toggle="modal" data-target="#myAttachModal"
-                                    data-dismiss="modal">
+                                    data-dismiss="modal"
+                                    ng-click="resetUpload()">
                                     <i class="fa fa-files-o" aria-hidden="true">
                                     </i>
                                 </button>
