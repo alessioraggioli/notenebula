@@ -466,7 +466,9 @@
                                 <button class="btn shareButtonsModal bordered hvr-box-shadow-inset"
                                     id="shareAudio" data-tooltip="tooltip"
                                     data-placement="right" data-
-                                    title="Registra voce">
+                                    title="Registra voce"
+                                    data-toggle="modal"
+                                    data-target="#myAudioModal" data-dismiss="modal">
                                     <i class="fa fa-microphone" aria-hidden="true">
                                     </i>
                                 </button>
@@ -610,7 +612,7 @@
                 <div id="myPhotoModal" class="modal fade"
                     role="dialog">
                     <div class="modal-dialog photoScroll">
-                        <!-- Modal content-->
+                        <!-- Modal content -->
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close"
@@ -765,6 +767,32 @@
                             </div>
                             <div class="modal-body">
                                 <img src="https://tsac-its.s3-eu-west-1.amazonaws.com/Screenshot_2.png" class="fileModal" />
+                            </div>
+                            <div class="modal-footer">
+                                
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div id="myAudioModal" class="modal fade"
+                    role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close"
+                                    data-dismiss="modal">
+                                    &times;</button>
+                                <h4 class="modal-title">Registra l'audio</h4>
+                            </div>
+                            <div class="modal-body">
+                                <button>registra</button>
+                                <button>play</button>
+                                <button>porco</button>
                             </div>
                             <div class="modal-footer">
                                 
