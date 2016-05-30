@@ -35,7 +35,17 @@ routerApp.service('AwsService', function () {
     this.upload = function(callback){
         var fileChooser = document.getElementById('file-chooser');
         var file = fileChooser.files[0];
-        if (file) {
+        console.log("Eccolo qua!");
+        console.log(file);
+        this.uploadFile(file, callback);
+    }
+
+    this.uploadFile = function(file, callback){
+        if (file.size > 2097152){
+            console.log("Sta merda pesa il cristo");
+            callback({porco:"cazzo"}, null);
+        }
+        else if (file) {
             var params = {Key: file.name, ContentType: file.type, Body: file};
             bucket.upload(params, function(err, data){callback(err, data);});
         }
