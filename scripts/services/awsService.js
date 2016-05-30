@@ -41,7 +41,7 @@ routerApp.service('AwsService', function () {
         }
         else {
             console.log("Non ce un cazzo");
-            //TODO avviso
+            callback({porco:"porco"}, null);
         }
     }
 
