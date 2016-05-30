@@ -929,11 +929,11 @@ angular.module('routerApp')
             $scope.uploadingMessage = "Caricamento allegato...";
             AwsService.upload(function(err, data){
                 if (err){
-                    if (err.porco == "porco"){
+                    if (err.porco == -1){
                         $scope.uploadingMessage = "Caricamento del niente riuscito! (Dovresti selezionare un file)";
                         $scope.uploadingPhase = 0;
                     }
-                    else if (err.porco == "cristo"){
+                    else if (err.porco == -2){
                         $scope.uploadingMessage = "La dimensione del file deve essere inferiore a 2 MB"
                         $scope.uploadingPhase = 0;
                     }
