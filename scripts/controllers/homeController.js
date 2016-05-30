@@ -929,8 +929,12 @@ angular.module('routerApp')
             $scope.uploadingMessage = "Caricamento allegato...";
             AwsService.upload(function(err, data){
                 if (err){
-                    if (err.porco){
+                    if (err.porco == "porco"){
                         $scope.uploadingMessage = "Caricamento del niente riuscito! (Dovresti selezionare un file)";
+                        $scope.uploadingPhase = 0;
+                    }
+                    else if (err.porco == "cristo"){
+                        $scope.uploadingMessage = "La dimensione del file deve essere inferiore a 2 MB"
                         $scope.uploadingPhase = 0;
                     }
                     else {
@@ -949,6 +953,69 @@ angular.module('routerApp')
                 $scope.uploadingPhase = 2;
                 $scope.uploadingMessage = "Caricamento riuscito!";
             });
+        }
+
+        $scope.uploadPhoto = function(){
+            $scope.uploadingPhase = 1;
+            html2canvas(document.getElementById("canvas"), {
+                onrendered: function(canvas) {
+                    var image = canvas.toDataURL("image/png");
+                    //document.getElementById("downloadLink").href = image;
+                    var blob = dataURItoBlob(image);
+                    /*
+                     var dataURL = canvas.toDataURL('image/jpeg', 0.5);
+                     var blob = dataURItoBlob(dataURL);
+                     */
+                    //var image = dataURItoBlob(canvas.toDataURL());
+
+                    //document.getElementById("downloadLink").href = image;
+                    //var data =
+                    var f = new File([blob], (new Date().getTime()) + "nebulaPhoto.png");
+                    AwsService.uploadFile(f, function(err, data){
+                        if (err){
+                            if (err.porco){
+                                $scope.uploadingMessage = "Caricamento del niente riuscito! (Dovresti selezionare un file)";
+                                $scope.uploadingPhase = 0;
+                            }
+                            else {
+                                $scope.uploadingMessage = "Corbezzoli!";
+                                $scope.uploadingPhase = 3;
+                                console.error(err);
+                            }
+                            return;
+                        }
+                        //alert(err);
+                        //alert(data);
+                        console.log("Gesu' cristo no nessuno");
+                        console.log(err);
+                        console.log(data);
+                        $scope.editFile(data);
+                        $scope.uploadingPhase = 2;
+                        $scope.uploadingMessage = "Caricamento riuscito!";
+                    })
+                },
+                useCORS: true
+            });
+        }
+
+        function dataURItoBlob(dataURI) {
+            // convert base64/URLEncoded data component to raw binary data held in a string
+            var byteString;
+            if (dataURI.split(',')[0].indexOf('base64') >= 0)
+                byteString = atob(dataURI.split(',')[1]);
+            else
+                byteString = unescape(dataURI.split(',')[1]);
+
+            // separate out the mime component
+            var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+            // write the bytes of the string to a typed array
+            var ia = new Uint8Array(byteString.length);
+            for (var i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+
+            return new Blob([ia], {type:mimeString});
         }
 
         $scope.getFile = function(){
