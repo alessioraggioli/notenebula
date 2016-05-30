@@ -1034,6 +1034,10 @@ angular.module('routerApp')
                 //alert(data);
                 console.log(err);
                 console.log(data);
+                var blob = new Blob([data.Body], { type: data.ContentType} );
+                var urlCreator = window.URL || window.webkitURL;
+                console.log(urlCreator.createObjectURL(blob));
+                return urlCreator.createObjectURL(blob);
             });
         }
 
