@@ -766,7 +766,7 @@
                                 <h4 class="modal-title">Allegato per {{currentNote.doc.title}}</h4>
                             </div>
                             <div class="modal-body">
-                                <img src="https://tsac-its.s3-eu-west-1.amazonaws.com/Screenshot_2.png" class="fileModal" />
+                                <img ng-src="{{attachShowed}}" class="fileModal" />
                             </div>
                             <div class="modal-footer">
                                 
@@ -808,10 +808,10 @@
                 </div>
 
                 <div class="blockNoteContainer col-xs-12">
-                     <div class="filePreview">
+                     <div class="filePreview" ng-hide = 'currentNote.doc.fileKey.key == "-1"'>
                             <button class="btn" type="button" style="background-color: {{currentNote.doc.color}}" 
-                                ng-class="currentNote.doc.font" data-toggle="modal" data-target="#myFileModal">
-                                 <span ng-style="{color: isNoteOpaque(currentNote) ? 'white' : 'black'}"><i class="fa fa-file-image-o" aria-hidden="true"></i> orazio.png</span>
+                                ng-class="currentNote.doc.font" data-toggle="modal" data-target="#myFileModal" ng-click="getFile()">
+                                 <span ng-style="{color: isNoteOpaque(currentNote) ? 'white' : 'black'}"><i class="fa fa-file-image-o" aria-hidden="true"></i> {{getFileName()}}</span>
                                 </button>
                          <!-- 
                              if txt = class="fa fa-file-text-o"

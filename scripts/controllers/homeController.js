@@ -54,6 +54,9 @@ angular.module('routerApp')
         $scope.uploadingPhase = 0;
         $scope.uploadingMessage = "Seleziona un file da caricare";
 
+        $scope.loadingAttach = false;
+        $scope.attachShowed = "";
+
         $scope.write = function () {
             console.log("Creazione nuova nota");
             if (TrafficLightService.busy()) {
@@ -1023,12 +1026,14 @@ angular.module('routerApp')
                 ia[i] = byteString.charCodeAt(i);
             }
 
-            return new Blob([ia], {type:mimeString});
+            return new Blob([ia], {type:"image/png"});
         }
 
         $scope.getFile = function(){
+            $scope.attachShowed = "-1";
             console.log($scope.currentNote.fileKey);
             if ($scope.currentNote.doc.fileKey.Key == "-1") return;
+            $scope.loadingAttach = true;
             AwsService.getObject($scope.currentNote.doc.fileKey.Key, function(err, data){
                 //alert(err);
                 //alert(data);
@@ -1037,8 +1042,20 @@ angular.module('routerApp')
                 var blob = new Blob([data.Body], { type: data.ContentType} );
                 var urlCreator = window.URL || window.webkitURL;
                 console.log(urlCreator.createObjectURL(blob));
+                $scope.loadingAttach = false;
+                $scope.attachShowed = urlCreator.createObjectURL(blob);
                 return urlCreator.createObjectURL(blob);
             });
+        }
+
+        $scope.getFileName = function(){
+            if (!$scope.currentNote.doc.fileKey.Key) return "wtf";
+            if (!$scope.currentNote.doc.fileKey) return "wtf";
+            if (!$scope.currentNote.doc) return "wtf";
+            if (!$scope.currentNote) return "wtf";
+            if ($scope.currentNote.doc.fileKey.Key == "-1") return "wtf";
+            var name = $scope.currentNote.doc.fileKey.Location.split("/");
+            return name[name.length - 1];
         }
 
         $(document).ready(function () {
