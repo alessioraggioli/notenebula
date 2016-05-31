@@ -772,8 +772,8 @@
                             <div class="modal-body">
                                 <!--<img ng-src="{{attachShowed}}" class="fileModal" /> style="background-image:url('{{attachShowed}}')"-->
                                 <div class="teLiVedo">
-                                    <img src="images/gear.svg" id="gearLoader" />
-                                    <img ng-src="{{attachShowed}}"
+                                    <img ng-show ='loadingAttach' src="images/gear.svg" id="gearLoader" />
+                                    <img ng-show ='!loadingAttach' ng-src="{{attachShowed}}"
                                         class="fileModal" />
                                 </div>
                             </div>
@@ -843,7 +843,7 @@
                 </div>
 
                 <div class="blockNoteContainer col-xs-12">
-                    <div class="filePreview" ng-hide='currentNote.doc.fileKey.key == "-1"'>
+                    <div class="filePreview" ng-hide='currentNote.doc.fileKey.key == "-1" || currentNote.doc.fileKey == undefined'>
                         <button class="btn" type="button"
                             style="background-color: {{currentNote.doc.color}}"
                             ng-class="currentNote.doc.font"

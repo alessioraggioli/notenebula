@@ -628,6 +628,7 @@ angular.module('routerApp')
 
         $scope.initVideo = function(){
             VideoService.init();
+            $scope.resetPhoto();
         }
 
         function init() {
@@ -966,6 +967,11 @@ angular.module('routerApp')
             });
         }
 
+        $scope.resetPhoto = function(){
+            $scope.uploadingMessage = "";
+            $scope.uploadingPhase = 0;
+        }
+
         $scope.uploadPhoto = function(){
             $scope.uploadingPhase = 1;
             html2canvas(document.getElementById("canvas"), {
@@ -1049,10 +1055,10 @@ angular.module('routerApp')
         }
 
         $scope.getFileName = function(){
-            if (!$scope.currentNote.doc.fileKey.Key) return "wtf";
-            if (!$scope.currentNote.doc.fileKey) return "wtf";
-            if (!$scope.currentNote.doc) return "wtf";
             if (!$scope.currentNote) return "wtf";
+            if (!$scope.currentNote.doc) return "wtf";
+            if (!$scope.currentNote.doc.fileKey) return "wtf";
+            if (!$scope.currentNote.doc.fileKey.Key) return "wtf";
             if ($scope.currentNote.doc.fileKey.Key == "-1") return "wtf";
             var name = $scope.currentNote.doc.fileKey.Location.split("/");
             return name[name.length - 1];
