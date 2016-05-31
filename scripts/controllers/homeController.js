@@ -1067,8 +1067,12 @@ angular.module('routerApp')
            
                $('[data-tooltip="tooltip"]').click(function () {
                     $(this).tooltip("destroy");
-                })
-            
+               })
+
+               setInterval(function () {
+                   $('[data-tooltip="tooltip"]').tooltip("destroy");
+               }, 1000);
+              
                $('.rectFeaturesSettings').click(function () {
                    $('.sidebar-offcanvas').toggleClass('active', 1000);
                });
@@ -1114,6 +1118,8 @@ angular.module('routerApp')
 
                            if (s > 59) {
                                timerOff();
+                               $("#s").html("00");
+                               s = 0;
                            }
 
                            $("#s").html(dchiffre(s));
