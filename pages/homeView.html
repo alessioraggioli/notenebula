@@ -755,7 +755,7 @@
                 <!-- Modal -->
                 <div id="myFileModal" class="modal fade"
                     role="dialog">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-lg">
 
                         <!-- Modal content-->
                         <div class="modal-content">
@@ -766,7 +766,10 @@
                                 <h4 class="modal-title">Allegato per {{currentNote.doc.title}}</h4>
                             </div>
                             <div class="modal-body">
-                                <img ng-src="{{attachShowed}}" class="fileModal" />
+                                <!--<img ng-src="{{attachShowed}}" class="fileModal" />-->
+                                <div class="teLiVedo" style="background-image:url('{{attachShowed}}')">
+
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 
@@ -790,12 +793,19 @@
                                 <h4 class="modal-title">Registra l'audio</h4>
                             </div>
                             <div class="modal-body">
-                                <button>registra</button>
-                                <button>play</button>
-                                <button>porco</button>
+                                <button class="btn btn-primary caricaAudio">Carica</button>
+                                <span class="micIcon col-xs-12">
+                                    <i class="fa fa-microphone" id="mic" aria-hidden="true"></i>
+                                </span>
+                                <span class="col-xs-12 timer"><b>00</b> : <b id="s">00</b></span><!-- mettere il limite dioo -->
+                                <div class="col-xs-12 playButtons">
+                                <button class="btn btn-success" id="startRecording"><i class="fa fa-play" aria-hidden="true"></i></button>
+                                <button class="btn btn-danger" id="stopRecording"><i class="fa fa-stop" aria-hidden="true"></i></button>
+                                </div>
+                                
                             </div>
                             <div class="modal-footer">
-                                
+                                                              
                             </div>
                         </div>
 

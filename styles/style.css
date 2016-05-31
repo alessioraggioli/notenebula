@@ -516,7 +516,25 @@ select {
     height:400px;
 }
 
+.micIcon {
+    font-size:100pt;
+    text-align:center;
+}
+
+.timer {
+    text-align:center;
+    font-size:15pt;
+    font-family:Raleway;
+    margin-top:-20px;
+}
+
+.playButtons{
+    margin-left:40%;
+    margin-right:40%;
+}
+
     .filePreview button {
+        transition:all 0.3s ease-in-out;
         background-image: url("../images/noise.png");
         font-size: 14pt;
         color: black;
@@ -526,13 +544,16 @@ select {
         border-bottom-left-radius: 0px;
         border-bottom-right-radius: 0px;
         font-weight: bold;
-        height: 40px;
+        height: 50px;
+        transform:translate(0,+10px);
     }
 
         .filePreview button:hover, .filePreview button:active, .filePreview button:visited, .filePreview button:focus {
+            transition:all 0.3s ease-in-out;
             font-size: 14pt;
             color: black;
             background-image: none;
+            transform:translate(0,0px);
         }
 
 .dropdown-menu-right li a {
@@ -666,6 +687,21 @@ select {
     text-align: center;
     margin-left: 85%;
     margin-top: -380px;
+}
+
+.caricaAudio {
+    width:80%;
+    margin-left:10%;
+}
+
+.teLiVedo {
+    width:90%;
+    height:450px;
+    margin-left:5%;
+    margin-right:5%;
+    background-size:cover;
+    background-repeat:no-repeat;
+    border:double 8px black;
 }
 
 .orange {
@@ -1285,6 +1321,10 @@ a, a:hover, a:visited, a:focus, a:active {
     .filePreview button:hover, .filePreview button:active, .filePreview button:visited, .filePreview button:focus {
         font-size:11pt;
     }
+
+    .teLiVedo {
+    height:200px;
+}
 }
 
 @media only screen and (min-device-width : 100px) and (max-device-width : 568px) and (orientation : portrait) {

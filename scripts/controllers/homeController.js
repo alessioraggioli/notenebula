@@ -1081,6 +1081,62 @@ angular.module('routerApp')
                $(":file").filestyle({ buttonBefore: true });
 
                $('select').select2({ width: 'resolve' });
+
+               
+               var s = 0; 
+
+               var temps; 
+               var bo = true; 
+               
+               var paused = false;
+
+               function dchiffre(nb) {
+                   if (nb < 10) 
+                   {
+                       nb = "0" + nb; 
+                   }
+
+                   return nb;
+               }
+
+               $("#startRecording").click(function timerOn() {
+                   $("#mic").addClass("animated infinite flash");
+                   $("#mic").css("animation-duration", "2s");
+                   if (paused) {
+                       $("#s").html("00");
+                       s = 0;
+                   }
+
+                   if (bo) {
+                       paused = false;
+                       temps = setInterval(function () {
+                           s++;
+
+                           if (s > 59) {
+                               timerOff();
+                           }
+
+                           $("#s").html(dchiffre(s));
+
+                       }, 1000);
+
+                       bo = false;
+                   }
+                   
+               });
+
+               $("#stopRecording").click(function timerOff() {
+                   $("#mic").removeClass("animated infinite flash");
+
+                   clearInterval(temps); 
+
+                   
+                   $("#s").html(dchiffre(s));
+                   
+                   paused = true;
+                   bo = true
+               });
+
         });
 
         init();
