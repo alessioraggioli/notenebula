@@ -13,7 +13,7 @@ angular.module('routerApp')
                                             AwsService
     ) {
 
-        $scope.title = "Senza titolo";
+        $scope.title = "Inserisci titolo";
         $scope.category = "Categoria";
 
         var debugging = true;
@@ -67,7 +67,7 @@ angular.module('routerApp')
             var t = {
                 _id: new Date().toISOString(),
                 content: "",
-                title: "Senza titolo",
+                title: "Inserisci titolo",
                 creationDate: getNow(),
                 lastEditDate: getNow(),
                 //color: "rgba(255, 255, 255, .0);"
@@ -973,6 +973,7 @@ angular.module('routerApp')
         }
 
         $scope.uploadPhoto = function(){
+            if (!document.getElementById("canvas").src) return;
             $scope.uploadingPhase = 1;
             html2canvas(document.getElementById("canvas"), {
                 onrendered: function(canvas) {
