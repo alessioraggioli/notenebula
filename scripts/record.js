@@ -2,7 +2,7 @@
 $(document).ready(function(){
     $(document).on("click", "#startRecording", function () {   
         Fr.voice.record();
-        alert("start");
+        console.log("start");
         });
     });
 
@@ -37,7 +37,6 @@ $(document).on("click", "#playRecording", function(){
         restore();
     });
 
-    
-});/**
+   /**
  * Created by Dario on 26/05/2016.
  */

@@ -973,7 +973,7 @@ angular.module('routerApp')
         }
 
         $scope.uploadPhoto = function(){
-            if (!document.getElementById("canvas").src) return;
+            
             $scope.uploadingPhase = 1;
             html2canvas(document.getElementById("canvas"), {
                 onrendered: function(canvas) {
@@ -1137,6 +1137,7 @@ angular.module('routerApp')
                    }
                    
                });
+
 
                $("#stopRecording").click(function timerOff() {
                    $("#mic").removeClass("animated infinite flash");

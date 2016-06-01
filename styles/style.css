@@ -383,6 +383,7 @@ select {
     width: 70%;
     margin-left: 15%;
     margin-right: 15%;
+    background:white;
 }
 
 .fontButtonsModal {
@@ -711,8 +712,8 @@ select {
 
 #gearLoader {
     position: absolute;
-    left: 40%;
-    top: 30%;
+    left: 42%;
+    top: 32%;
 }
 
 .orange {
