@@ -34,7 +34,7 @@ body {
 }
 
 .open {
-    font-family: Open Sans Condensed;
+    font-family: Play;
 }
 
 .center {
@@ -383,6 +383,7 @@ select {
     width: 70%;
     margin-left: 15%;
     margin-right: 15%;
+    background:white;
 }
 
 .fontButtonsModal {
@@ -509,31 +510,51 @@ select {
     position: relative;
 }
 
-.fileModal {
-    width:80%;
-    margin-left:10%;
-    margin-right:10%;
-    height:400px;
+.micIcon {
+    font-size: 100pt;
+    text-align: center;
 }
 
-    .filePreview button {
-        background-image: url("../images/noise.png");
+.timer {
+    text-align: center;
+    font-size: 15pt;
+    font-family: Raleway;
+    margin-top: -20px;
+}
+
+.playButtons {
+    margin-left: 37%;
+    margin-right: 37%;
+}
+
+#submitRecording {
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.filePreview button {
+    transition: all 0.3s ease-in-out;
+    background-image: url("../images/noise.png");
+    font-size: 14pt;
+    color: black;
+    width: auto;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    font-weight: bold;
+    height: 50px;
+    transform: translate(0,+10px);
+}
+
+    .filePreview button:hover, .filePreview button:active, .filePreview button:visited, .filePreview button:focus {
+        transition: all 0.3s ease-in-out;
         font-size: 14pt;
         color: black;
-        width: auto;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        border-bottom-left-radius: 0px;
-        border-bottom-right-radius: 0px;
-        font-weight: bold;
-        height: 40px;
+        background-image: none;
+        transform: translate(0,0px);
     }
-
-        .filePreview button:hover, .filePreview button:active, .filePreview button:visited, .filePreview button:focus {
-            font-size: 14pt;
-            color: black;
-            background-image: none;
-        }
 
 .dropdown-menu-right li a {
     font-size: 13pt;
@@ -666,6 +687,33 @@ select {
     text-align: center;
     margin-left: 85%;
     margin-top: -380px;
+}
+
+.caricaAudio {
+    width: 80%;
+    margin-left: 10%;
+}
+
+.fileModal {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    height: 500px;
+    border: double 8px black;
+}
+
+
+.teLiVedo {
+    width: 90%;
+    height: 500px;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+#gearLoader {
+    position: absolute;
+    left: 42%;
+    top: 32%;
 }
 
 .orange {
@@ -1278,13 +1326,13 @@ a, a:hover, a:visited, a:focus, a:active {
     }
 
     .filePreview button {
-        
-        font-size: 11pt;      
+        font-size: 11pt;
     }
 
-    .filePreview button:hover, .filePreview button:active, .filePreview button:visited, .filePreview button:focus {
-        font-size:11pt;
-    }
+        .filePreview button:hover, .filePreview button:active, .filePreview button:visited, .filePreview button:focus {
+            font-size: 11pt;
+        }
+
 }
 
 @media only screen and (min-device-width : 100px) and (max-device-width : 568px) and (orientation : portrait) {
@@ -1296,6 +1344,11 @@ a, a:hover, a:visited, a:focus, a:active {
     .crea {
         font-size: 25pt;
     }
+
+    .teLiVedo, .fileModal {
+        height: 150px;
+    }
+
 
     #addFeatures {
         font-size: 15pt;

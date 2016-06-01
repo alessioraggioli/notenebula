@@ -4,7 +4,7 @@
             <img src="images/logo2.png" class="logoMinimal hidden-xs hidden-sm"
                 id="testMobile" />
             <span class="hidden-xs hidden-sm animated fadeIn ">
-                <b id="not">!e</b>Nebula</span>
+                <b>!e</b>Nebula</span>
             <button class="btn rectFeaturesSettings hidden-md hidden-lg no-text"
                 id="sidebarIcon" name="sidebarEvent"
                 data-toggle="offcanvas">
@@ -375,7 +375,7 @@
                                 </button>
                                 <button class="btn fontButtonsModal bordered open"
                                     data-dismiss="modal" ng-click="editFont('open')">
-                                    Open Sans C.
+                                    Play
                                 </button>
 
                             </div>
@@ -403,16 +403,17 @@
 
                             <div class="modal-body">
                                 {{uploadingMessage}}
-                               <div class="progress" ng-show="uploadingPhase > 0"
-                                   ng-class="uploadingPhase == 0 ? 'progress-bar' : uploadingPhase == 1 ? 'progress-bar-info progress-bar-striped active' : uploadingPhase == 2 ? 'progress-bar-success' : 'progress-bar-danger progress-bar-striped'"
-                                   role="progressbar"
-                                   aria-valuenow="{{uploadingPhase == 0 ? '0' : '100'}}"
-                                   aria-valuemin="0"
-                                   aria-valuemax="{{uploadingPhase == 0 ? '0' : '100'}}"
-                                   style="width: 100%">
-                                   <div class="progress-bar">
-                                   </div>
-                               </div>
+                              
+                                <div class="progress" ng-show="uploadingPhase > 0"
+                                    ng-class="uploadingPhase == 1 ? 'progress-bar-info progress-bar-striped active' : uploadingPhase == 2 ? 'progress-bar-success' : 'progress-bar-danger progress-bar-striped'">
+                                    <div class="progress-bar progress-bar-striped active"
+                                        ng-class="uploadingPhase == 1 ? 'progress-bar-info progress-bar-striped active' : uploadingPhase == 2 ? 'progress-bar-success' : 'progress-bar-danger progress-bar-striped'"
+                                        role="progressbar"
+                                        aria-valuenow="{{uploadingPhase == 0 ? '100' : '100'}}"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100" style="width: 100%">
+                                    </div>
+                                </div>
                                 <input type="file" id="file-chooser" />
                                 <!-- class="filestyle" -->
 
@@ -420,10 +421,7 @@
                             <div class="modal-footer">
                                 <input type="submit" value="Upload"
                                     ng-click="upload()" class="btn btn-info" />
-                                <button type="button" ng-click="getFile()"
-                                    class="btn btn-default">
-                                    Allega</button>
-
+                                
                             </div>
                         </div>
                     </div>
@@ -466,7 +464,10 @@
                                 <button class="btn shareButtonsModal bordered hvr-box-shadow-inset"
                                     id="shareAudio" data-tooltip="tooltip"
                                     data-placement="right" data-
-                                    title="Registra voce">
+                                    title="Registra voce"
+                                    data-toggle="modal"
+                                    data-target="#myAudioModal"
+                                    data-dismiss="modal">
                                     <i class="fa fa-microphone" aria-hidden="true">
                                     </i>
                                 </button>
@@ -610,7 +611,7 @@
                 <div id="myPhotoModal" class="modal fade"
                     role="dialog">
                     <div class="modal-dialog photoScroll">
-                        <!-- Modal content-->
+                        <!-- Modal content -->
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close"
@@ -636,20 +637,21 @@
                                 </i>
                             </button>
                             <div class="modal-footer">
+                                <b ng-show="uploadingPhase > 1"
+                                    class="col-xs-12 center">{{uploadingMessage}}
+                                </b>
                                 <div class="progress" ng-show="uploadingPhase > 0"
-                                    ng-class="uploadingPhase == 0 ? 'progress-bar' : uploadingPhase == 1 ? 'progress-bar-info progress-bar-striped active' : uploadingPhase == 2 ? 'progress-bar-success' : 'progress-bar-danger progress-bar-striped'"
-                                    role="progressbar"
-                                    aria-valuenow="{{uploadingPhase == 0 ? '0' : '100'}}"
-                                    aria-valuemin="0"
-                                    aria-valuemax="{{uploadingPhase == 0 ? '0' : '100'}}"
-                                    style="width: 100%">
-                                    <div class="progress-bar">
+                                    ng-class="uploadingPhase == 1 ? 'progress-bar-info progress-bar-striped active' : uploadingPhase == 2 ? 'progress-bar-success' : 'progress-bar-danger progress-bar-striped'">
+                                    <div class="progress-bar progress-bar-striped active"
+                                        ng-class="uploadingPhase == 1 ? 'progress-bar-info progress-bar-striped active' : uploadingPhase == 2 ? 'progress-bar-success' : 'progress-bar-danger progress-bar-striped'"
+                                        role="progressbar"
+                                        aria-valuenow="{{uploadingPhase == 0 ? '100' : '100'}}"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100" style="width: 100%">
                                     </div>
                                 </div>
                             </div>
-                            <p ng-show="uploadingPhase > 1">
-                                {{uploadingMessage}}
-                            </p>
+
                         </div>
                     </div>
                 </div>
@@ -753,6 +755,35 @@
                 <!-- Modal -->
                 <div id="myFileModal" class="modal fade"
                     role="dialog">
+                    <div class="modal-dialog modal-lg">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close"
+                                    data-dismiss="modal">
+                                    &times;</button>
+                                <h3 class="modal-title">Allegato per
+                                    {{currentNote.doc.title}}</h3>
+                            </div>
+                            <div class="modal-body">
+                                <!--<img ng-src="{{attachShowed}}" class="fileModal" /> style="background-image:url('{{attachShowed}}')"-->
+                                <div class="teLiVedo">
+                                    <img ng-show ='loadingAttach' src="images/gears.gif" id="gearLoader" />
+                                    <img ng-show ='!loadingAttach' ng-src="{{attachShowed}}"
+                                        class="fileModal" />
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div id="myAudioModal" class="modal fade"
+                    role="dialog">
                     <div class="modal-dialog">
 
                         <!-- Modal content-->
@@ -761,10 +792,41 @@
                                 <button type="button" class="close"
                                     data-dismiss="modal">
                                     &times;</button>
-                                <h4 class="modal-title">Allegato per {{currentNote.doc.title}}</h4>
+                                <h3 class="modal-title">Registra l'audio
+                                </h3>
                             </div>
                             <div class="modal-body">
-                                <img src="https://tsac-its.s3-eu-west-1.amazonaws.com/Screenshot_2.png" class="fileModal" />
+                                <div>
+                                    <button class="btn btn-primary"
+                                        id="submitRecording">
+                                        <i class="fa fa-upload" aria-hidden="true">
+                                        </i> Carica
+                                    </button>
+                                </div>
+                                <span class="micIcon col-xs-12">
+                                    <i class="fa fa-microphone" id="mic"
+                                        aria-hidden="true"></i>
+                                </span>
+                                <span class="col-xs-12 timer"><b>00</b>
+                                    : <b id="s">00</b></span><!-- mettere il limite dioo -->
+                                
+                                <div class="col-xs-12 playButtons">
+                                    <button class="btn btn-danger"
+                                        id="startRecording">
+                                        <i class="fa fa-circle" aria-hidden="true"></i>
+                                    </button>
+                                    <button class="btn btn-default"
+                                        id="stopRecording">
+                                        <i class="fa fa-stop"
+                                            aria-hidden="true"></i>
+                                    </button>
+                                    <button class="btn btn-success"
+                                        id="playRecording">
+                                        <i class="fa fa-play"
+                                            aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                
                             </div>
                             <div class="modal-footer">
                                 
@@ -776,23 +838,28 @@
 
 
                 <div class="col-xs-12 no-text">
-                    
                 </div>
 
                 <div class="blockNoteContainer col-xs-12">
-                     <div class="filePreview">
-                            <button class="btn" type="button" style="background-color: {{currentNote.doc.color}}" 
-                                ng-class="currentNote.doc.font" data-toggle="modal" data-target="#myFileModal">
-                                 <span ng-style="{color: isNoteOpaque(currentNote) ? 'white' : 'black'}"><i class="fa fa-file-image-o" aria-hidden="true"></i> orazio.png</span>
-                                </button>
-                         <!-- 
+                    <div class="filePreview" ng-hide='currentNote.doc.fileKey.key == "-1" || currentNote.doc.fileKey == undefined'>
+                        <button class="btn" type="button"
+                            style="background-color: {{currentNote.doc.color}}"
+                            ng-class="currentNote.doc.font"
+                            data-toggle="modal" data-target="#myFileModal"
+                            ng-click="getFile()">
+                            <span ng-style="{color: isNoteOpaque(currentNote) ? 'white' : 'black'}">
+                                <i class="fa fa-paperclip" aria-hidden="true">
+                                </i>
+                                {{previewText(getFileName(),10)}}</span>
+                        </button>
+                        <!-- 
                              if txt = class="fa fa-file-text-o"
                              if audio = class="fa fa-file-audio-o"
                              if wtf = class="fa fa-file-o"
                              if pdf = class="fa fa-file-pdf-o"
                              if video = class="fa fa-film"
                              -->
-                        </div>
+                    </div>
                     <div class="blockNotePreview gloria"
                         ng-class="!downloading ? 'scrollable' : ''"
                         style="transition: all 0.4s ease-in-out;
@@ -801,16 +868,16 @@
                         <h1 ng-style="{color: isNoteOpaque(currentNote) ? 'white' : 'black'}"
                             ng-class="currentNote.doc.font">
                             {{currentNote.doc.title}}</h1>
-                       
-                    <article ng-style="{color: isNoteOpaque(currentNote) ? 'white' : 'black'}"
-                        ng-class="currentNote.doc.font">
-                        <ng-bind-html
-                            ng-bind-html="currentNote.doc.content">
-                            </ng-bind-html>
-                        <!--{{currentNote.doc.content}}-->
-                    </article>
 
-                </div>
+                        <article ng-style="{color: isNoteOpaque(currentNote) ? 'white' : 'black'}"
+                            ng-class="currentNote.doc.font">
+                            <ng-bind-html
+                                ng-bind-html="currentNote.doc.content">
+                            </ng-bind-html>
+                            <!--{{currentNote.doc.content}}-->
+                        </article>
+
+                    </div>
 
                 </div>
                 <div class="editArea">
@@ -844,7 +911,7 @@
                             ta-disabled="!thereAreNotes()"
                             ta-paste="stripFormat($html)"
                             text-angular
-                            ta-toolbar="[['bold','italics','underline','strikeThrough','ul','ol','justifyLeft','justifyCenter','justifyRight','insertImage','insertLink','insertVideo']]"
+                            ta-toolbar="[['bold','italics','underline','strikeThrough','ul','ol','justifyLeft','justifyCenter','justifyRight']]"
                             placeholder="{{place}}" ng-model="text"
                             data-toggle="popover" data-trigger="focus"
                             data-content="Cristo">

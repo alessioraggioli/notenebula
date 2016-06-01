@@ -13,7 +13,7 @@ angular.module('routerApp')
                                             AwsService
     ) {
 
-        $scope.title = "Senza titolo";
+        $scope.title = "Inserisci titolo";
         $scope.category = "Categoria";
 
         var debugging = true;
@@ -54,6 +54,9 @@ angular.module('routerApp')
         $scope.uploadingPhase = 0;
         $scope.uploadingMessage = "Seleziona un file da caricare";
 
+        $scope.loadingAttach = false;
+        $scope.attachShowed = "";
+
         $scope.write = function () {
             console.log("Creazione nuova nota");
             if (TrafficLightService.busy()) {
@@ -64,7 +67,7 @@ angular.module('routerApp')
             var t = {
                 _id: new Date().toISOString(),
                 content: "",
-                title: "Senza titolo",
+                title: "Inserisci titolo",
                 creationDate: getNow(),
                 lastEditDate: getNow(),
                 //color: "rgba(255, 255, 255, .0);"
@@ -625,6 +628,7 @@ angular.module('routerApp')
 
         $scope.initVideo = function(){
             VideoService.init();
+            $scope.resetPhoto();
         }
 
         function init() {
@@ -924,16 +928,24 @@ angular.module('routerApp')
             $scope.uploadingMessage = "Seleziona un file da caricare";
         }
 
+        /*
+
+         var blob = new Blob( [ data.Body ], { type: note.attachment.type } );
+         var urlCreator = window.URL || window.webkitURL;
+         return urlCreator.createObjectURL(blob);
+
+         */
+
         $scope.upload = function(){
             $scope.uploadingPhase = 1;
             $scope.uploadingMessage = "Caricamento allegato...";
             AwsService.upload(function(err, data){
                 if (err){
-                    if (err.porco == "porco"){
+                    if (err.porco == -1){
                         $scope.uploadingMessage = "Caricamento del niente riuscito! (Dovresti selezionare un file)";
                         $scope.uploadingPhase = 0;
                     }
-                    else if (err.porco == "cristo"){
+                    else if (err.porco == -2){
                         $scope.uploadingMessage = "La dimensione del file deve essere inferiore a 2 MB"
                         $scope.uploadingPhase = 0;
                     }
@@ -955,7 +967,13 @@ angular.module('routerApp')
             });
         }
 
+        $scope.resetPhoto = function(){
+            $scope.uploadingMessage = "";
+            $scope.uploadingPhase = 0;
+        }
+
         $scope.uploadPhoto = function(){
+            
             $scope.uploadingPhase = 1;
             html2canvas(document.getElementById("canvas"), {
                 onrendered: function(canvas) {
@@ -1015,18 +1033,36 @@ angular.module('routerApp')
                 ia[i] = byteString.charCodeAt(i);
             }
 
-            return new Blob([ia], {type:mimeString});
+            return new Blob([ia], {type:"image/png"});
         }
 
         $scope.getFile = function(){
+            $scope.attachShowed = "-1";
             console.log($scope.currentNote.fileKey);
             if ($scope.currentNote.doc.fileKey.Key == "-1") return;
+            $scope.loadingAttach = true;
             AwsService.getObject($scope.currentNote.doc.fileKey.Key, function(err, data){
                 //alert(err);
                 //alert(data);
                 console.log(err);
                 console.log(data);
+                var blob = new Blob([data.Body], { type: data.ContentType} );
+                var urlCreator = window.URL || window.webkitURL;
+                console.log(urlCreator.createObjectURL(blob));
+                $scope.loadingAttach = false;
+                $scope.attachShowed = urlCreator.createObjectURL(blob);
+                return urlCreator.createObjectURL(blob);
             });
+        }
+
+        $scope.getFileName = function(){
+            if (!$scope.currentNote) return "wtf";
+            if (!$scope.currentNote.doc) return "wtf";
+            if (!$scope.currentNote.doc.fileKey) return "wtf";
+            if (!$scope.currentNote.doc.fileKey.Key) return "wtf";
+            if ($scope.currentNote.doc.fileKey.Key == "-1") return "wtf";
+            var name = $scope.currentNote.doc.fileKey.Location.split("/");
+            return name[name.length - 1];
         }
 
         $(document).ready(function () {
@@ -1038,8 +1074,12 @@ angular.module('routerApp')
            
                $('[data-tooltip="tooltip"]').click(function () {
                     $(this).tooltip("destroy");
-                })
-            
+               })
+
+               setInterval(function () {
+                   $('[data-tooltip="tooltip"]').tooltip("destroy");
+               }, 1000);
+              
                $('.rectFeaturesSettings').click(function () {
                    $('.sidebar-offcanvas').toggleClass('active', 1000);
                });
@@ -1052,6 +1092,65 @@ angular.module('routerApp')
                $(":file").filestyle({ buttonBefore: true });
 
                $('select').select2({ width: 'resolve' });
+
+               
+               var s = 0; 
+
+               var temps; 
+               var bo = true; 
+               
+               var paused = false;
+
+               function dchiffre(nb) {
+                   if (nb < 10) 
+                   {
+                       nb = "0" + nb; 
+                   }
+
+                   return nb;
+               }
+
+               $("#startRecording").click(function timerOn() {
+                   $("#mic").addClass("animated infinite flash");
+                   $("#mic").css("animation-duration", "2s");
+                   if (paused) {
+                       $("#s").html("00");
+                       s = 0;
+                   }
+
+                   if (bo) {
+                       paused = false;
+                       temps = setInterval(function () {
+                           s++;
+
+                           if (s > 59) {
+                               timerOff();
+                               $("#s").html("00");
+                               s = 0;
+                           }
+
+                           $("#s").html(dchiffre(s));
+
+                       }, 1000);
+
+                       bo = false;
+                   }
+                   
+               });
+
+
+               $("#stopRecording").click(function timerOff() {
+                   $("#mic").removeClass("animated infinite flash");
+
+                   clearInterval(temps); 
+
+                   
+                   $("#s").html(dchiffre(s));
+                   
+                   paused = true;
+                   bo = true
+               });
+
         });
 
         init();

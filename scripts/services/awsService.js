@@ -43,7 +43,7 @@ routerApp.service('AwsService', function () {
     this.uploadFile = function(file, callback){
         if (file.size > 2097152){
             console.log("Sta merda pesa il cristo");
-            callback({porco:"cazzo"}, null);
+            callback({porco:-2}, null);
         }
         else if (file) {
             var params = {Key: file.name, ContentType: file.type, Body: file};
@@ -51,7 +51,7 @@ routerApp.service('AwsService', function () {
         }
         else {
             console.log("Non ce un cazzo");
-            callback({porco:"porco"}, null);
+            callback({porco:-1}, null);
         }
     }
 
