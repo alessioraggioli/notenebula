@@ -772,7 +772,7 @@
                             <div class="modal-body">
                                 <!--<img ng-src="{{attachShowed}}" class="fileModal" /> style="background-image:url('{{attachShowed}}')"-->
                                 <div class="teLiVedo">
-                                    <img ng-show ='loadingAttach' src="images/gear.svg" id="gearLoader" />
+                                    <img ng-show ='loadingAttach' src="images/gears.gif" id="gearLoader" />
                                     <img ng-show ='!loadingAttach' ng-src="{{attachShowed}}"
                                         class="fileModal" />
                                 </div>
@@ -812,6 +812,7 @@
                                 </span>
                                 <span class="col-xs-12 timer"><b>00</b>
                                     : <b id="s">00</b></span><!-- mettere il limite dioo -->
+                                <audio controls src="" id="audio"></audio>
                                 <div class="col-xs-12 playButtons">
                                     <button class="btn btn-danger"
                                         id="startRecording">
@@ -913,7 +914,7 @@
                             ta-disabled="!thereAreNotes()"
                             ta-paste="stripFormat($html)"
                             text-angular
-                            ta-toolbar="[['bold','italics','underline','strikeThrough','ul','ol','justifyLeft','justifyCenter','justifyRight','insertImage','insertLink','insertVideo']]"
+                            ta-toolbar="[['bold','italics','underline','strikeThrough','ul','ol','justifyLeft','justifyCenter','justifyRight']]"
                             placeholder="{{place}}" ng-model="text"
                             data-toggle="popover" data-trigger="focus"
                             data-content="Cristo">
